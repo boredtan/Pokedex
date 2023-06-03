@@ -1,0 +1,195 @@
+body {
+    color: white;
+    background-image: url('https://cdn.dribbble.com/users/4973491/screenshots/11793418/pokemon_gif_gun.gif');
+}
+
+.noScroll {
+    height: 100%;
+    overflow: hidden;
+  }
+
+.noDisplay {
+    display: none;
+}
+
+#loading {
+    background: url('https://media.tenor.com/fSsxftCb8w0AAAAi/pikachu-running.gif') no-repeat center center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999999;
+    background-color: black;
+}
+
+#noDisplayContainer {
+    /* background-color: black; */
+    background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700354074.jpg");
+}
+
+
+.apexcharts-menu {
+    color: #000000;
+}
+
+.apexcharts-tooltip {
+    color: #000000;
+}
+
+
+.card {
+    /* background-color: black; */
+    background-image: url("https://cdn.photoroom.com/v1/assets-cached.jpg?path=backgrounds_v3/black/Photoroom_black_background_extremely_fine_texture_only_black_co_c100e1e4-63a9-4adc-9794-202888321104.jpg");
+
+}
+
+.card-text {
+    text-transform: capitalize;
+}
+
+/* Pokemon types */
+.normal {
+    background-color: #A8A77A;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.fire {
+    background-color: #EE8130;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.water {
+    background-color: #6390F0;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.electric {
+    background-color: #F7D02C;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.grass {
+    background-color: #7AC74C;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.ice {
+    background-color: #96D9D6;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.fighting {
+    background-color: #C22E28;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.poison {
+    background-color: #A33EA1;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.ground {
+    background-color: #E2BF65;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.flying {
+    background-color: #A98FF3;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.psychic {
+    background-color: #F95587;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.bug {
+    background-color: #A6B91A;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.rock {
+    background-color: #B6A136;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+}
+
+.ghost {
+    background-color: #735797;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.dragon {
+    background-color: #6F35FC;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.dark {
+    background-color: #705746;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.steel {
+    background-color: #B7B7CE;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
+.fairy {
+    background-color: #D685AD;
+    text-transform: uppercase;
+    max-width: max-content;
+    padding: 1%;
+    color: white;
+} 
+
