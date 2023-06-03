@@ -1,7 +1,15 @@
 body {
     color: white;
-    background-image: url('https://cdn.dribbble.com/users/4973491/screenshots/11793418/pokemon_gif_gun.gif');
+    /* background-image: url('https://cdn.dribbble.com/users/4973491/screenshots/11793418/pokemon_gif_gun.gif'); */
+    background: url("tails.gif");
+    font-family: "Audiowide", sans-serif;
 }
+
+.logoDiv {
+    width: 10%;
+    height: 10%
+}
+
 
 .noScroll {
     height: 100%;
@@ -13,7 +21,8 @@ body {
 }
 
 #loading {
-    background: url('https://media.tenor.com/fSsxftCb8w0AAAAi/pikachu-running.gif') no-repeat center center;
+    /* background: url('https://media.tenor.com/fSsxftCb8w0AAAAi/pikachu-running.gif') no-repeat center center; */
+    background: url("running.gif") no-repeat center center;
     position: absolute;
     top: 0;
     left: 0;
@@ -23,12 +32,14 @@ body {
     background-color: black;
 }
 
+
+
 #noDisplayContainer {
     /* background-color: black; */
-    background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700354074.jpg");
+    background-image: url("bodyBg.jpg");
 }
 
-
+/* Stat chart */
 .apexcharts-menu {
     color: #000000;
 }
@@ -37,10 +48,13 @@ body {
     color: #000000;
 }
 
+.uppercaseText {
+    text-transform: capitalize;
+}
 
 .card {
     /* background-color: black; */
-    background-image: url("https://cdn.photoroom.com/v1/assets-cached.jpg?path=backgrounds_v3/black/Photoroom_black_background_extremely_fine_texture_only_black_co_c100e1e4-63a9-4adc-9794-202888321104.jpg");
+    background-image: url("cardBg.jpg");
 
 }
 

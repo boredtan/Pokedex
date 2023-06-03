@@ -8,6 +8,7 @@ const getPokemonSummary = require('./pokemonSummary');
 const getPokemonVarieties = require('./pokemonVarieties');
 const getPokemonGenera = require('./pokemonGenera');
 const getPokemonHeightWeight = require('./pokemonHeightWeight');
+const getprevNextPokemon = require('./prevNextPokemon');
 
 
 module.exports = async (dexNumber) => {
@@ -23,6 +24,7 @@ module.exports = async (dexNumber) => {
         const pokemonVarieties = await getPokemonVarieties(dexNumber);
         const pokemonGenera = await getPokemonGenera(dexNumber);
         const pokemonHeightWeight = await getPokemonHeightWeight(dexNumber);
+        const prevNextPokemon = await getprevNextPokemon(dexNumber);
         pokemonData.push(pokemonName);
         pokemonData.push(pokemonEvolution);
         pokemonData.push(pokemonAbilities);
@@ -32,6 +34,7 @@ module.exports = async (dexNumber) => {
         pokemonData.push(pokemonVarieties);
         pokemonData.push(pokemonGenera);
         pokemonData.push(pokemonHeightWeight);
+        pokemonData.push(prevNextPokemon);
         return pokemonData;
     }
     catch(e) {
