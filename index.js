@@ -13,6 +13,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'stylesheet')));
 app.use(express.static(path.join(__dirname, 'methods')));
 app.use(express.static(path.join(__dirname, 'assets')));
+
 // Routes
 app.get('/', async (req, res) => {
     const pokemonName = await getPokemonName();
@@ -21,9 +22,8 @@ app.get('/', async (req, res) => {
 
 app.get('/:id', async (req, res) => {
     const dexNumber = req.params.id;
+    console.log(dexNumber);
     const pokemonData = await getPokemonData(dexNumber);
-    const prevNum = parseInt(dexNumber)-1;
-    const nextNum = parseInt(dexNumber)+1;
     res.render('pokemon', {name:pokemonData[0], dexNumber, pokemonEvolution:pokemonData[1] ,pokemonAbilities:pokemonData[2], pokemonStats:pokemonData[3], pokemonType:pokemonData[4], pokemonSummary: pokemonData[5], pokemonVarieties: pokemonData[6], pokemonCategory: pokemonData[7], pokemonMeasurement: pokemonData[8], prevNext: pokemonData[9]});
 })
 

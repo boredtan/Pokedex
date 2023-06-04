@@ -84,8 +84,8 @@
         
         <!-- Pokemon image -->
         <div class="row">
-            <img class="img-fluid col-6" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/<%= dexNumber %>.png"  alt="...">
-            <img class="img-fluid col-6" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/shiny/<%= dexNumber %>.png"  alt="...">
+            <img class="img-fluid col-6" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/<%= dexNumber %>.png"  alt="...">
+            <img class="img-fluid col-6" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/<%= dexNumber %>.png"  alt="...">
         </div>
 
         <!-- Pokemon summary -->
@@ -184,9 +184,20 @@
 
         <!-- Pokemon evolution -->
         <section>
-            <h2>Evolution:</h2>
+            <p class="h2">Evolution chain:</p>
             <% for(var i = 0; i < pokemonEvolution.length; i++) { %>
-                <h3 class="" ><%= pokemonEvolution[i] %></h3>
+                <p>Evolution <%= i+1 %></p>
+                <!-- Number of evolution chain -->
+                <div class="row">
+                    <% for(var j = 0; j < pokemonEvolution[i].length; j++) { %>
+                        <a href="/<%= pokemonEvolution[i][j].dexNumber %>" class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/<%= pokemonEvolution[i][j].dexNumber %>.png" alt="Card image cap">
+                            <div class="card-body">
+                              <p class="card-title h5 text-light uppercaseText"><%= pokemonEvolution[i][j].name %></p>
+                            </div>
+                        </a>
+                    <% } %>
+                </div>
             <% } %>
         </section>
 
@@ -197,7 +208,7 @@
                 <div class="row">
                     <% for(var i = 0; i < pokemonVarieties[0].length; i++) { %>
                         <a href="/<%= dexNumber %>/<%= pokemonVarieties[1][i] %>" class="card text-light" style="width: 18rem;">
-                            <img class="card-img-top" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/<%= pokemonVarieties[1][i] %>.png"" alt="Card image cap">
+                            <img class="card-img-top" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/<%= pokemonVarieties[1][i] %>.png" alt="Card image cap">
                             <div class="card-body">
                               <p class="card-title uppercaseText h5"><%= pokemonVarieties[0][i] %></p>
                             </div>
