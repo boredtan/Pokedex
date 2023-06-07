@@ -31,10 +31,19 @@
             <a class="nav-link disabled">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex" role="search" action="/search">
-          <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+
+        <!-- Search form -->
+        <div id="searchContainer">
+          <form class="d-flex" role="search" action="/search">
+            <input class="form-control me-2" list="nameList" type="search" placeholder="Enter Pokemon name" name="q" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <datalist id="nameList">
+            <% for(var i = 0; i < nameList.length; i++) { %>
+              <option value="<%- nameList[i].name %>"><%- nameList[i].name %></option>  
+            <% } %>
+          </datalist>
+        </div>
       </div>
     </div>
 </nav>
