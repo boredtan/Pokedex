@@ -7,11 +7,24 @@ const getPokemonName = require('./methods/pokemonName');
 const getPokemonData = require('./methods/pokemonData');
 const getVariantPokemonData = require('./methods/variantPokemonData');
 const getQueriedDex = require('./methods/queriedDex');
+const getFavouritesData = require('./methods/favouritesData');
+const bodyParser = require('body-parser');
+const Favourite = require('./models/favourite');
 
+// Connect to mongoose
+const mongoose = require('mongoose');
+main().catch(err => console.log(err));
+async function main() {
+    await mongoose.connect('mongodb://127.0.0.1:27017/favourite');
+    console.log("Connected to mongoose");
+  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
+}
 
 // Set file path and view engine to ejs
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'stylesheet')));
 app.use(express.static(path.join(__dirname, 'methods')));
 app.use(express.static(path.join(__dirname, 'assets')));
@@ -28,9 +41,59 @@ app.get('/', async (req, res) => {
     }
 })
 
+app.get('/favourite', async (req, res) => {
+    try {
+
+        const nameList = await getPokemonName();
+        // const pokemonName = await getPokemonName();
+        const favourites = await Favourite.find({});
+        const favouritesData = await getFavouritesData(favourites);
+        res.render('favourite', {nameList, favouritesData});
+    }
+    catch(e) {
+        res.render('error');
+    }
+})
+
+app.get('/favourite/addPokemon', async (req, res) => {
+    try {
+        const nameList = await getPokemonName();
+        const pokemonName = await getPokemonName();
+        res.render('addPokemon', {pokemonName, nameList});
+    }
+    catch(e) {
+        res.render('error');
+    }
+})
+
+app.get('/favourite/:id', async (req, res) => {
+    try {
+        const nameList = await getPokemonName();
+        const pokemonName = await getPokemonName();
+        const {id} = req.params;
+        const favDetails = await Favourite.findById(id);
+        const dexNumber = await getQueriedDex(favDetails.pokemonName);
+
+        res.render('favouritePokemon', {pokemonName, nameList, favDetails});
+    }
+    catch(e) {
+        res.render('error');
+    }
+})
+
+app.post('/favourite', async (req, res) => {
+    try {
+        const newFavourite = new Favourite(req.body);
+        await newFavourite.save();
+        res.redirect('favourite');
+    }
+    catch(e) {
+        res.render('error');
+    }
+})
+
 app.get('/:id', async (req, res) => {
     try {
-        console.log("Search term: " + req.query.q);
         let dexNumber;
         const queriedDex = await getQueriedDex(req.query.q);
         if(queriedDex) {
@@ -39,7 +102,6 @@ app.get('/:id', async (req, res) => {
         else {
             dexNumber = req.params.id;
         }
-        console.log("Dex number is: " + dexNumber);
         const pokemonData = await getPokemonData(dexNumber);
         const nameList = await getPokemonName();
         

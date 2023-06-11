@@ -39,6 +39,14 @@ body {
     background-image: url("bodyBg.jpg");
 }
 
+.mainImg {
+    transition: transform 0.2s;
+}
+
+.mainImg:hover {
+    transform: scale(1.2); 
+  }
+
 /* Stat chart */
 .apexcharts-menu {
     color: #000000;
