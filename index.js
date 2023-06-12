@@ -1,5 +1,6 @@
 // Import modules
 const fetch = require("node-fetch");
+const methodOverride = require("method-override");
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -17,10 +18,8 @@ main().catch(err => console.log(err));
 async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/favourite');
     console.log("Connected to mongoose");
-  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
 }
 
-// Set file path and view engine to ejs
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'stylesheet')));
 app.use(express.static(path.join(__dirname, 'methods')));
 app.use(express.static(path.join(__dirname, 'assets')));
+app.use(methodOverride('_method'));
 
 // Routes
 app.get('/', async (req, res) => {
@@ -37,10 +37,12 @@ app.get('/', async (req, res) => {
         res.render('index', {pokemonName, nameList});
     }
     catch(e) {
-        res.render('error');
+        const nameList = await getPokemonName();
+        res.render('error', {nameList});
     }
 })
 
+// Favourite page
 app.get('/favourite', async (req, res) => {
     try {
 
@@ -51,10 +53,12 @@ app.get('/favourite', async (req, res) => {
         res.render('favourite', {nameList, favouritesData});
     }
     catch(e) {
-        res.render('error');
+        const nameList = await getPokemonName();
+        res.render('error', {nameList});
     }
 })
 
+// Add pokemon to favourite page
 app.get('/favourite/addPokemon', async (req, res) => {
     try {
         const nameList = await getPokemonName();
@@ -62,25 +66,41 @@ app.get('/favourite/addPokemon', async (req, res) => {
         res.render('addPokemon', {pokemonName, nameList});
     }
     catch(e) {
-        res.render('error');
+        const nameList = await getPokemonName();
+        res.render('error', {nameList});
     }
 })
 
-app.get('/favourite/:id', async (req, res) => {
+// Edit comment of favourite pokemon page
+app.get('/favourite/:id/edit', async (req, res) => {
     try {
         const nameList = await getPokemonName();
         const pokemonName = await getPokemonName();
         const {id} = req.params;
         const favDetails = await Favourite.findById(id);
-        const dexNumber = await getQueriedDex(favDetails.pokemonName);
-
-        res.render('favouritePokemon', {pokemonName, nameList, favDetails});
+        res.render('editComment', {pokemonName, nameList, favDetails});
     }
     catch(e) {
-        res.render('error');
+        const nameList = await getPokemonName();
+        res.render('error', {nameList});
     }
 })
 
+// Delete favourite pokemon page
+app.get('/favourite/:id/delete', async (req, res) => {
+    try {
+        const nameList = await getPokemonName();
+        const {id} = req.params;
+        const favDetails = await Favourite.findById(id);
+        res.render('deleteFavourite', {nameList, favDetails});
+    }
+    catch(e) {
+        const nameList = await getPokemonName();
+        res.render('error', {nameList});
+    }
+})
+
+// Mongo add to database 
 app.post('/favourite', async (req, res) => {
     try {
         const newFavourite = new Favourite(req.body);
@@ -88,22 +108,60 @@ app.post('/favourite', async (req, res) => {
         res.redirect('favourite');
     }
     catch(e) {
-        res.render('error');
+        const nameList = await getPokemonName();
+        res.render('error', {nameList});
     }
 })
 
+// Mongo update database
+app.put('/favourite', async (req, res) => {
+    try {
+        const id = req.body.pokemonId;
+        const favDetails = await Favourite.findById(id);
+        favDetails.pokemonComment = req.body.pokemonComment;
+        await favDetails.save();
+        res.redirect('favourite');
+    }
+    catch(e) {
+        const nameList = await getPokemonName();
+        res.render('error', {nameList});
+    }
+})
+
+// Mongo delete from database
+app.delete('/favourite', async (req, res) => {
+    try {
+        const id = req.body.pokemonId;
+        const deletedFavourite = await Favourite.findByIdAndDelete(id);
+        res.redirect('favourite');
+    }
+    catch(e) {
+        const nameList = await getPokemonName();
+        res.render('error', {nameList});
+    }
+})
+
+// Pokemon details page
 app.get('/:id', async (req, res) => {
     try {
         let dexNumber;
         const queriedDex = await getQueriedDex(req.query.q);
+        const nameList = await getPokemonName();
         if(queriedDex) {
             dexNumber = queriedDex;
         }
         else {
-            dexNumber = req.params.id;
+            if(req.params.id >0 && req.params.id < 906) {
+                dexNumber = req.params.id;
+            }
+            else {
+                res.render('error', {nameList});
+            }
+            
         }
+        
         const pokemonData = await getPokemonData(dexNumber);
-        const nameList = await getPokemonName();
+        
         
         
         res.render('pokemon', {name:pokemonData[0], dexNumber, pokemonEvolution:pokemonData[1], 
@@ -117,7 +175,7 @@ app.get('/:id', async (req, res) => {
     }
 })
 
-
+// Variant pokemon page
 app.get('/:id/:variant', async (req, res) => {
     try {
         const nameList = await getPokemonName();
@@ -126,10 +184,12 @@ app.get('/:id/:variant', async (req, res) => {
         res.render('pokemonVariant', {name: variantData[0], dexNumber: dexNumber, prevName:variantData[5], prevId:variantData[6], pokemonAbilities: variantData[1], pokemonStats: variantData[2], pokemonType: variantData[3], pokemonMeasurement: variantData[4], nameList});
     }
     catch(e) {
-        res.render('error');
+        const nameList = await getPokemonName();
+        res.render('error', {nameList});
     }
  })
 
+//  Error page
 app.get("*", async (req, res) => {
     const nameList = await getPokemonName();
     res.render('error', {nameList});

@@ -21,21 +21,25 @@
         <% if(favouritesData[0][0] == undefined) { %>
             <h1>No Pokemon added</h1>    
         <% } else { %>
-            <div class="row">
+            <h1 class="mt-3">Favourite Pokemons!</h1>
+            <div class="row justify-content-around">
                 <% for(var i = 0; i < favouritesData[0].length; i++) { %>
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 20rem;">
                         <img class="card-img-top mainImg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/<%= favouritesData[1][i] %>.png" alt="Card image cap">
                         <div class="card-body">
-                          <h5 class="card-title text-capitalize"><%= favouritesData[0][i] %></h5>
-                          <p class="card-text"><%= favouritesData[2][i] %></p>
-                          <!-- <a class="btn btn-danger" href="/favourite/<%= favouritesData[3][i] %>"><%= favouritesData[0][i] %></a> -->
-                          <a class="btn btn-danger" href="/<%= favouritesData[1][i] %>">View details</a>
+                            <h5 class="card-title text-capitalize"><%= favouritesData[0][i] %></h5>
+                            <p class="card-text"><%= favouritesData[2][i] %></p>
+                            <!-- <a class="btn btn-danger" href="/favourite/<%= favouritesData[3][i] %>"><%= favouritesData[0][i] %></a> -->
+                            <div class="">
+                                <a class="btn btn-outline-light" href="/favourite/<%= favouritesData[3][i] %>/edit">Edit comment</a>
+                                <a class="btn btn-outline-warning" href="/favourite/<%= favouritesData[3][i] %>/delete">Delete</a>
+                            </div>
                         </div>
                       </div>
                 <% } %>
             </div>
         <% } %>
-        <a class="btn btn-danger" href="/favourite/addPokemon">Add Pokemon</a>
+        <a class="btn btn-outline-danger" href="/favourite/addPokemon">Add Pokemon</a>
     </div>
 
 

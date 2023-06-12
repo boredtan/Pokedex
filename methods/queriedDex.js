@@ -12,7 +12,12 @@ module.exports = async (pokemonName) => {
             }
             const queriedName = pokemonName.toLowerCase();
             const queriedDex = nameList.indexOf(queriedName) + 1;
-            return queriedDex;
+            if(queriedDex != 0) {
+                return queriedDex;
+            }
+            else {
+                return false;
+            }
         }   
         else {
             console.log("Fake string detetected");
